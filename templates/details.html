@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{user.full_name}}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row d-flex justify-content-around align-items-start mt-3">
+		<h1 class="display-6">{{user.full_name}}</h1>
+		<hr>
+		<div class="card" style="width: 18rem;">
+			<img src="{{user.image_url}}" class="card-img-top" alt="{{user.full_name}}">
+			<div class="card-body">
+				<h5 class="card-title">{{userfull_name}}</h5>
+				<a href="/users/{{user.id}}/edit" class="btn btn-outline-primary">Edit</a>
+				<a href="/users/{{user.id}}/delete" class="btn btn-outline-danger">Delete</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}
