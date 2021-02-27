@@ -16,7 +16,7 @@ app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 db.drop_all()
 db.create_all()
 
-# python -m unittest test_models.py
+# python -m unittest test_flask.py
 
 
 class UserViewsTestCase(TestCase):
@@ -53,8 +53,8 @@ class UserViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1 class="display-6">First Last</h1>', html)
-            self.assertIn(self.user.get_full_name(), html)
+            self.assertIn('<p class="card-title display-6 text-center">First Last</p>', html)
+            self.assertIn(self.user.full_name, html)
 
     def test_add_user(self):
         with app.test_client() as client:

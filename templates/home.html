@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Blogly{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  
+  <div class="row d-flex justify-content-around align-items-start mt-3">
+    
+    <!-- users -->
+    <div class="col-auto">
+
+      {% if session['users'] | length > 0 %}
+        <h1 class="display-6">Users</h1>
+        <hr>
+      {% else %}
+        <h1 class="display-6 mt-5">Add the first user to get started.</h1>
+      {% endif %}
+      
+      <ul>
+        {% for user in users %}
+        <li><a href="/users/{{user.id}}">{{user.full_name}}</a></li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+    <!-- Posts -->
+    {% if posts | length > 0 %}
+    <div class="col-auto">
+  
+      <h1 class="display-6">Last {{posts | count}} Posts</h1>
+      <hr>
+
+      {% for post in posts %}
+
+      <div class="card shadow my-2 p-0" style="max-width: 50vw">
+        <div class="card-header">
+          <h4 class="card-title m-0">{{post.title}}</h5>
+        </div>
+        <div class="card-body text-dark overflow-auto" style="max-height: 250px;">
+          <p class="card-text">{{post.content}}</p>
+        </div>
+        <div class="card-footer d-flex flex-wrap justify-content-between">
+          <div class="">
+            By <a href="/users/{{post.owner_id}}">{{post.user.full_name}}</a>
+            <small class="text-muted"><i> ({{post.created_at.strftime('%c')}})</i></small>
+          </div> 
+          <div class="d-flex flex-nowrap ms-auto">
+            <a href="/posts/{{post.id}}" class="ms-1 btn btn-primary btn-sm">View</a>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+      
+    </div>
+    {% endif %}
+  
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

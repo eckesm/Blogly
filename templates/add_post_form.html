@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Create a Post{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row d-flex justify-content-around align-items-start mt-3">
+		<h1 class="display-6">Create a post for {{user.full_name}}</h1>
+		<hr>
+
+		<form class="col-12 col-sm-10 col-md-8 col-lg-6" id="new_user_form" action="/users/{{user.id}}/posts/new" method="POST">
+				
+			<div class="input-group mb-3">
+        <span class="input-group-text" id="title">Title</span>
+        <input type="text" class="form-control" name="title" placeholder="Something catchy..." required>
+      </div>
+
+			<div class="input-group mb-3">
+        <span class="input-group-text" id="content">Post</span>
+        <textarea class="form-control" name="content" placeholder='Maybe start with "once upon a time..." and go from there.' required></textarea>
+      </div>
+
+			<a href="/users/{{user.id}}" class="btn btn-outline-primary">Cancel</a>
+			<button type="submit" class="btn btn-success">Submit</button>
+		
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}
