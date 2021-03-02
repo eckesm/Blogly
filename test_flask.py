@@ -58,9 +58,9 @@ class UserViewsTestCase(TestCase):
 
     def test_add_user(self):
         with app.test_client() as client:
-            d = {"first_name": "Lady", "last_name": "Gaga", "image_url": ""}
+            d = {"first_name": "Prince", "last_name": "Charles", "image_url": ""}
             resp = client.post("/users/new", data=d, follow_redirects=True)
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<a href="/users/2">Lady Gaga</a>', html)
+            self.assertIn('<p class="card-title display-6 text-center">Prince Charles</p>', html)
