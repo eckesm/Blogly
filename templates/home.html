@@ -20,7 +20,14 @@
         
         <ul>
           {% for user in users %}
-          <li><a href="/users/{{user.id}}">{{user.full_name}}</a></li>
+          <li class="d-flex align-items-center justify-content-between">
+            <a href="/users/{{user.id}}">{{user.full_name}}</a>
+            
+            {%if user.posts | length > 0 %}
+              <span class="badge bg-primary rounded-pill ms-3">{{user.posts | length}}</span>  
+            {% endif %}
+          
+          </li>
           {% endfor %}
         </ul>
 
@@ -32,14 +39,24 @@
         {% if session['tags'] | length > 0 %}
           <h1 class="display-6">Tags</h1>
           <hr>
+          
           <ul>
             {% for tag in tags %}
-            <li><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
+            <li class="d-flex align-items-center justify-content-between">
+              <a href="/tags/{{tag.id}}">{{tag.name}}</a>
+              
+              {%if tag.posts | length > 0 %}
+              <span class="badge bg-primary rounded-pill ms-3">{{tag.posts | length}}</span>  
+              {% endif %}
+            
+            </li>
             {% endfor %}
           </ul>
+        
         {% else %}
           <h1 class="display-6 mt-5">Add the first tag to see posts by tag.</h1>
         {% endif %}
+
       </div>
     </div>
 
@@ -56,19 +73,32 @@
 
       <div class="card shadow my-2 p-0" style="max-width: 50vw">
         <div class="card-header">
-          <h4 class="card-title m-0">{{post.title}}</h5>
+          <h4 class="card-title m-0">{{post.title}}</h4>
         </div>
         <div class="card-body text-dark overflow-auto" style="max-height: 250px;">
           <p class="card-text">{{post.content}}</p>
         </div>
-        <div class="card-footer d-flex flex-wrap justify-content-between">
-          <div class="">
-            By <a href="/users/{{post.owner_id}}">{{post.user.full_name}}</a>
-            <small class="text-muted"><i> ({{post.created_at.strftime('%c')}})</i></small>
-          </div> 
-          <div class="d-flex flex-nowrap ms-auto">
-            <a href="/posts/{{post.id}}" class="ms-1 btn btn-primary btn-sm">View</a>
+        <div class="card-footer">
+          
+          <div class="d-flex flex-wrap justify-content-between">
+            <div>
+              By <a href="/users/{{post.owner_id}}">{{post.user.full_name}}</a>
+              <small class="text-muted"><i> ({{post.created_at.strftime('%c')}})</i></small>
+            </div> 
+            <div class="d-flex flex-nowrap ms-auto">
+              <a href="/posts/{{post.id}}" class="ms-1 btn btn-primary btn-sm">View</a>
+            </div>
           </div>
+ 
+          {% if post.tags | length > 0 %}
+          <div class="d-flex align-items-center">
+            <p class="my-0">Tags: </p>
+            {% for tag in post.tags %}
+            <span class="badge rounded-pill bg-primary mx-1">{{tag.name}}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        
         </div>
       </div>
 

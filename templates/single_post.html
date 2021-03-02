@@ -13,16 +13,29 @@
       <div class="card-body text-dark">
         <p class="card-text">{{post.content}}</p>
       </div>
-      <div class="card-footer d-flex flex-wrap justify-content-between">
-        <div class="">
-          By <a href="/users/{{user.id}}">{{user.full_name}}</a>
-          <small class="text-muted"><i> (posted: {{post.created_at.strftime('%c')}})</i></small>
-        </div> 
-        <div class="d-flex flex-nowrap ms-auto">
-          <a href="/users/{{user.id}}" class="btn btn-outline-primary btn-sm">Cancel</a>
-          <a href="/posts/{{post.id}}/edit" class="ms-1 btn btn-primary btn-sm">Edit</a>
-          <a href="/posts/{{post.id}}/delete" class="ms-1 btn btn-danger btn-sm">Delete</a>
+      <div class="card-footer">
+        
+        <div class="d-flex flex-wrap justify-content-between">
+          <div class="">
+            By <a href="/users/{{user.id}}">{{user.full_name}}</a>
+            <small class="text-muted"><i> (posted: {{post.created_at.strftime('%c')}})</i></small>
+          </div> 
+          <div class="d-flex flex-nowrap ms-auto">
+            <a href="/users/{{user.id}}" class="btn btn-outline-primary btn-sm">Cancel</a>
+            <a href="/posts/{{post.id}}/edit" class="ms-1 btn btn-primary btn-sm">Edit</a>
+            <a href="/posts/{{post.id}}/delete" class="ms-1 btn btn-danger btn-sm">Delete</a>
+          </div>
         </div>
+        
+        {% if post.tags | length > 0 %}
+        <div class="d-flex align-items-center">
+          <p class="my-0">Tags: </p>
+          {% for tag in post.tags %}
+          <span class="badge rounded-pill bg-primary mx-1">{{tag.name}}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      
       </div>
     </div>
   
