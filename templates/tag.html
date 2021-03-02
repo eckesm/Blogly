@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{tag.name}}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row d-flex justify-content-center align-items-start mt-3">
+    
+    <div class="row align-items-center">
+      <h1 class="display-6 col-auto">Posts tagged with <b><i>{{tag.name}}</i></b></h1>
+      <a href="/tags/{{tag.id}}/edit" class="col-auto ms-2 btn btn-primary btn-sm">Edit</a>
+      <hr>
+    </div>
+	
+    <!-- Posts -->
+    <div class="col-12 col-lg-6 pt-5">
+      {% if posts | length > 0 %}
+  
+        {% for post in posts %}
+
+        <div class="card my-2 p-0 shadow">
+          <div class="card-header">
+            <h4 class="card-title m-0">{{post.title}}</h5>
+          </div>
+          <div class="card-body text-dark overflow-auto" style="max-height: 250px;">
+            <p class="card-text">{{post.content}}</p>
+          </div>
+          <div class="card-footer d-flex flex-wrap justify-content-between">
+            <div class="">
+              By <a href="/users/{{post.user.id}}">{{post.user.full_name}}</a>
+              <small class="text-muted"><i> ({{post.created_at.strftime('%c')}})</i></small>
+            </div> 
+            <div class="d-flex flex-nowrap ms-auto">
+              <a href="/posts/{{post.id}}/edit" class="ms-1 btn btn-primary btn-sm">Edit</a>
+              <!-- <a href="/posts/{{post.id}}/delete" class="ms-1 btn btn-danger btn-sm">Delete</a> -->
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      {% else %}
+
+        <h1 class="display-6 mt-5">Tag some posts with this tag to see tagged posts here!</h1>
+      
+      {% endif %}
+    </div>
+  
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

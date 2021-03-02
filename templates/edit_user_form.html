@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{user.full_name}}{% endblock %}
+{% block title %}Edit {{user.full_name}}{% endblock %}
 
 {% block content %}
 
@@ -27,6 +27,7 @@
       
 			<a href="/users/{{user.id}}" class="btn btn-outline-primary">Cancel</a>
 			<button type="submit" class="btn btn-success">Save</button>
+			<a href="/users/{{user.id}}/delete" class="ms-1 btn btn-danger btn">Delete</a>
 
 		</form>
 	</div>

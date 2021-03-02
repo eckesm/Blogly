@@ -7,23 +7,43 @@
   
   <div class="row d-flex justify-content-around align-items-start mt-3">
     
-    <!-- users -->
     <div class="col-auto">
+      <!-- users -->
+      <div class="col-12 mb-5">
 
-      {% if session['users'] | length > 0 %}
-        <h1 class="display-6">Users</h1>
-        <hr>
-      {% else %}
-        <h1 class="display-6 mt-5">Add the first user to get started.</h1>
-      {% endif %}
-      
-      <ul>
-        {% for user in users %}
-        <li><a href="/users/{{user.id}}">{{user.full_name}}</a></li>
-        {% endfor %}
-      </ul>
+        {% if session['users'] | length > 0 %}
+          <h1 class="display-6">Users</h1>
+          <hr>
+        {% else %}
+          <h1 class="display-6 mt-5">Add the first user to get started.</h1>
+        {% endif %}
+        
+        <ul>
+          {% for user in users %}
+          <li><a href="/users/{{user.id}}">{{user.full_name}}</a></li>
+          {% endfor %}
+        </ul>
 
+      </div>
+
+      <!-- tags -->
+      <div class="col-12">
+
+        {% if session['tags'] | length > 0 %}
+          <h1 class="display-6">Tags</h1>
+          <hr>
+          <ul>
+            {% for tag in tags %}
+            <li><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <h1 class="display-6 mt-5">Add the first tag to see posts by tag.</h1>
+        {% endif %}
+      </div>
     </div>
+
+
 
     <!-- Posts -->
     {% if posts | length > 0 %}

@@ -10,7 +10,8 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
-DEFAULT_IMAGE_URL='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpce-coops.com%2Fwp-content%2Fuploads%2F2019%2F04%2Fblank-profile-picture-973460_1280-e1561474127956.png&f=1&nofb=1'
+
+DEFAULT_IMAGE_URL = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpce-coops.com%2Fwp-content%2Fuploads%2F2019%2F04%2Fblank-profile-picture-973460_1280-e1561474127956.png&f=1&nofb=1'
 
 
 class User(db.Model):
@@ -57,9 +58,37 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            server_default=func.now())
-    owner_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), )
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    posts_tags = db.relationship(
+        'PostTag', backref='post', cascade='all, delete-orphan')
+
+    tags = db.relationship('Tag', secondary='posts_tags', backref='posts')
 
     def __repr__(Self):
         p = Self
-        return f"<Post id={p.id} title={p.title} owner_id={p.owner_id}>"
+        return f"<Post id={p.id} title={p.title} owner={p.user.full_name}>"
+
+
+
+
+class Tag(db.Model):
+    """Tag model."""
+
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(25), nullable=False, unique=True)
+
+    posts_tags = db.relationship(
+        'PostTag', backref='tag', cascade='all, delete-orphan')
+
+
+class PostTag(db.Model):
+    """PostTag model."""
+
+    __tablename__ = 'posts_tags'
+
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)

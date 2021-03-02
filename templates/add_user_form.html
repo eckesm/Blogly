@@ -7,20 +7,21 @@
 	<div class="row d-flex justify-content-around align-items-start mt-3">
 		<h1 class="display-6">Add a User</h1>
 		<hr>
-		<form class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4" id="new_user_form" action="/users/new" method="POST">
+		
+    <form class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4" id="new_user_form" action="/users/new" method="POST">
 				
-			<div class="mb-3">
-					<label for="first_name" class="form-label">First Name</label>
+			<div class="input-group mb-3">
+					<span class="input-group-text">First Name</span>
 					<input type="text" class="form-control" id="first_name" name="first_name" placeholder="Ex: Lady" required>
 			</div>
 
-			<div class="mb-3">
-				<label for="last_name" class="form-label">Last Name</label>
+			<div class="input-group mb-3">
+				<span class="input-group-text">Last Name</span>
 				<input type="text" class="form-control" id="last_name" name="last_name" placeholder="Ex: Gaga" required>
 			</div>
 
-			<div class="mb-3">
-				<label for="image_url" class="form-label">Image URL</label>
+			<div class="input-group mb-3">
+				<span class="input-group-text">Image URL</span>
 				<input type="url" class="form-control" id="image_url" name="image_url" placeholder="(optional)">
 			</div>
 
