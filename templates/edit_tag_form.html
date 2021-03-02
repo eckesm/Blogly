@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Edit {{tag.name}}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row d-flex justify-content-around align-items-start mt-3">
+		<h1 class="display-6">Edit <b><i>{{tag.name}} Tag</i></b></h1>
+		<hr>
+
+		<form class="col-12 col-sm-10 col-md-8 col-lg-6" id="edit_tag_form" action="/tags/edit" method="POST">
+				
+      <div class="input-group mb-3">
+        <span class="input-group-text">Tag name</span>
+        <input type="text" class="form-control" name="name" maxlength="25" placeholder="...unsolved murders, pop divas, Swedish delicacies..." value="{{tag.name}}" required>
+      </div>
+
+			<a href="/tags/{{tag.id}}" class="btn btn-outline-primary">Cancel</a>
+			<button type="submit" class="btn btn-success">Save</button>
+			<a href="/tags/{{tag.id}}/delete" class="ms-1 btn btn-danger btn">Delete</a>
+		
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

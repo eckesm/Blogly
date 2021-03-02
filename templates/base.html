@@ -21,12 +21,43 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
               <li class="nav-item">
-                <a class="nav-link" href="/users">Users</a>
+                <a class="nav-link" href="/home">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users/new">Add New User</a>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="users_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
+                <ul class="dropdown-menu" aria-labelledby="users_dropdown">
+                  
+                  <li><a class="dropdown-item" href="/users/new">Add New User</a></li>
+
+                  {% if session['users'] | length > 0 %}
+                    <li><hr class="dropdown-divider"></li>
+                    {% for user in session['users'] %}
+                    <li><a class="dropdown-item" href="/users/{{user[0]}}">{{user[1]}} {{user[2]}}</a></li>
+                    {% endfor %}
+                  {% endif %}
+                  
+                </ul>
               </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="tags_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tags</a>
+                <ul class="dropdown-menu" aria-labelledby="tags_dropdown">
+                  
+                  <li><a class="dropdown-item" href="/tags/new">Add New Tag</a></li>
+
+                  {% if session['tags'] | length > 0 %}
+                    <li><hr class="dropdown-divider"></li>
+                    {% for tag in session['tags'] %}
+                    <li><a class="dropdown-item" href="/tags/{{tag[0]}}">{{tag[1]}}</a></li>
+                    {% endfor %}
+                  {% endif %}
+                  
+                </ul>
+              </li>
+
             </ul>
           </div>
         </div>

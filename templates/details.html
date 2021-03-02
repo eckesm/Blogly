@@ -4,18 +4,88 @@
 {% block content %}
 
 <div class="container">
-	<div class="row d-flex justify-content-around align-items-start mt-3">
-		<h1 class="display-6">{{user.full_name}}</h1>
-		<hr>
-		<div class="card" style="width: 18rem;">
-			<img src="{{user.image_url}}" class="card-img-top" alt="{{user.full_name}}">
-			<div class="card-body">
-				<h5 class="card-title">{{userfull_name}}</h5>
-				<a href="/users/{{user.id}}/edit" class="btn btn-outline-primary">Edit</a>
-				<a href="/users/{{user.id}}/delete" class="btn btn-outline-danger">Delete</a>
-			</div>
-		</div>
-	</div>
+	
+  <div class="row d-flex justify-content-center align-items-start">
+
+    <!-- Profile -->
+    <div class="col-12 col-lg-6">
+
+      <div class="card my-5 p-0 shadow" style="width: 25rem;">
+        
+        <img src="{{user.image_url}}" class="card-img-top" alt="{{user.full_name}}">
+        
+        <div class="card-body mb-1">
+          <p class="card-title display-6 text-center">{{user.full_name}}</p> 
+        </div>
+        
+        {% if posts | length > 0 %}
+        <p class="h4 ms-2">Posts:</p>
+        <ul class="list-group list-group-flush">
+          {% for post in posts %}
+          <li class="list-group-item"><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+  
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="/users/{{user.id}}/posts/new" class="btn btn-primary btn-sm">Add Post</a>
+            <div class="d-flex">
+              <a href="/users/{{user.id}}/edit" class="btn btn-primary btn-sm">Edit</a>
+              <!-- <a href="/users/{{user.id}}/delete" class="btn btn-danger btn-sm ms-1">Delete</a> -->
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    
+    </div>
+	
+    <!-- Posts -->
+    {% if posts | length > 0 %}
+    <div class="col-12 col-lg-6 pt-5">
+  
+      {% for post in posts %}
+
+      <div class="card my-2 p-0 shadow" style="max-width: 50vw;">
+        <div class="card-header">
+          <h4 class="card-title m-0">{{post.title}}</h5>
+        </div>
+        <div class="card-body text-dark overflow-auto" style="max-height: 250px;">
+          <p class="card-text">{{post.content}}</p>
+        </div>
+        <div class="card-footer">
+          
+          <div class="d-flex flex-wrap justify-content-between">
+            <div>
+              By <a href="/users/{{user.id}}">{{user.full_name}}</a>
+              <small class="text-muted"><i> ({{post.created_at.strftime('%c')}})</i></small>
+            </div> 
+            <div class="d-flex flex-nowrap ms-auto">
+              <a href="/posts/{{post.id}}" class="ms-1 btn btn-primary btn-sm">View</a>
+              <a href="/posts/{{post.id}}/edit" class="ms-1 btn btn-primary btn-sm">Edit</a>
+            </div>
+          </div>
+           
+          {% if post.tags | length > 0 %}
+          <div class="d-flex align-items-center">
+            <p class="my-0">Tags: </p>
+            {% for tag in post.tags %}
+            <span class="badge rounded-pill bg-primary mx-1">{{tag.name}}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+      
+        </div>
+      </div>
+
+      {% endfor %}
+      
+    </div>
+    {% endif %}
+  
+  </div>
+
 </div>
 
 {% endblock %}

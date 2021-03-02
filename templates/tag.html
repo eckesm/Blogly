@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}{{tag.name}}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row d-flex justify-content-center align-items-start mt-3">
+    
+    <div class="row align-items-center">
+      <h1 class="display-6 col-auto">Posts tagged with <b><i>{{tag.name}}</i></b></h1>
+      <a href="/tags/{{tag.id}}/edit" class="col-auto ms-2 btn btn-primary btn-sm">Edit</a>
+      <hr>
+    </div>
+	
+    <!-- Posts -->
+    <div class="col-12 col-lg-6 pt-5">
+      {% if posts | length > 0 %}
+  
+        {% for post in posts %}
+
+        <div class="card my-2 p-0 shadow">
+          <div class="card-header">
+            <h4 class="card-title m-0">{{post.title}}</h5>
+          </div>
+          <div class="card-body text-dark overflow-auto" style="max-height: 250px;">
+            <p class="card-text">{{post.content}}</p>
+          </div>
+          <div class="card-footer">
+            
+            <div class="d-flex flex-wrap justify-content-between">
+              <div class="">
+                By <a href="/users/{{post.user.id}}">{{post.user.full_name}}</a>
+                <small class="text-muted"><i> ({{post.created_at.strftime('%c')}})</i></small>
+              </div> 
+              <div class="d-flex flex-nowrap ms-auto">
+                <a href="/posts/{{post.id}}" class="ms-1 btn btn-primary btn-sm">View</a>
+                <a href="/posts/{{post.id}}/edit" class="ms-1 btn btn-primary btn-sm">Edit</a>
+              </div>
+            </div>
+
+            {% if post.tags | length > 0 %}
+            <div class="d-flex align-items-center">
+              <p class="my-0">Tags: </p>
+              {% for tag in post.tags %}
+              <span class="badge rounded-pill bg-primary mx-1">{{tag.name}}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+
+        {% endfor %}
+
+      {% else %}
+
+        <h1 class="display-6 mt-5">Tag some posts with this tag to see tagged posts here!</h1>
+      
+      {% endif %}
+    </div>
+  
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

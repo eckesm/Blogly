@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Create a Tag{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row d-flex justify-content-around align-items-start mt-3">
+		<h1 class="display-6">Create a Tag</h1>
+		<hr>
+
+		<form class="col-12 col-sm-10 col-md-8 col-lg-6" id="new_tag_form" action="/tags/new" method="POST">
+				
+      <div class="input-group mb-3">
+        <span class="input-group-text">Tag name</span>
+        <input type="text" class="form-control" name="name" maxlength="25" placeholder="...unsolved murders, pop divas, Swedish delicacies..." required>
+      </div>
+
+			<a href="/tags" class="btn btn-outline-primary">Cancel</a>
+			<button type="submit" class="btn btn-success">Add</button>
+		
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

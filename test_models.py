@@ -26,5 +26,4 @@ class UserModelTestCase(TestCase):
     def test_get_full_name(self):
         """Test get_full_name method."""
         user = User(first_name="TestFirst", last_name="TestLast")
-        # self.assertEquals(user.get_full_name(), "TestFirst TestLast")
         self.assertEquals(user.full_name, "TestFirst TestLast")
